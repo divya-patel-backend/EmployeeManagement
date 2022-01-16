@@ -26,13 +26,13 @@ public class Controller {
     }
 
     @PostMapping("/employees")
-    public Employee addEmployee(@RequestBody com.springboot.springboot.DTO.request.EmployeeDetails e){
-        return this.empService.addEmployee(e);
+    public Employee addEmployee(@RequestBody com.springboot.springboot.DTO.request.EmployeeDetails employeeDetails){
+        return this.empService.addEmployee(employeeDetails);
     }
 
     @PutMapping("/employees")
-    public ResponseEntity<String> updateEmployee(@RequestBody com.springboot.springboot.DTO.request.EmployeeDetails e){
-        return this.empService.updateEmployee(e);
+    public ResponseEntity<String> updateEmployee(@RequestBody com.springboot.springboot.DTO.request.EmployeeDetails employeeDetails){
+        return this.empService.updateEmployee(employeeDetails);
     }
 
     @DeleteMapping("/employees/{empId}")

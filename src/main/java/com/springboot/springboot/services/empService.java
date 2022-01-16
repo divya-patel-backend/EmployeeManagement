@@ -11,11 +11,11 @@ import java.util.Optional;
 public interface empService {
 
     List<EmployeeDetails> getEmployees();
-    EmployeeDetails getEmployee(Long emp_id);
+    EmployeeDetails getEmployee(Long empId);
 
-    Employee addEmployee(com.springboot.springboot.DTO.request.EmployeeDetails emp_name);
+    Employee addEmployee(com.springboot.springboot.DTO.request.EmployeeDetails empName);
 
-    ResponseEntity<String> deleteEmployee(long parseLong);
+    ResponseEntity<String> deleteEmployee(long empId);
 
-    ResponseEntity<String> updateEmployee(com.springboot.springboot.DTO.request.EmployeeDetails e);
+    ResponseEntity<String> updateEmployee(com.springboot.springboot.DTO.request.EmployeeDetails employeeDetails);
 }

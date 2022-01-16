@@ -57,16 +57,16 @@ public class serviceImpl implements empService{
         LocalDate date=LocalDate.now();
         LocalDateTime updatedAt= LocalDateTime.now();
         LocalDateTime createdAt=LocalDateTime.now();
-        Employee e=new Employee(emp_name.getEmpName(),date,createdAt,updatedAt);
-        empDao.save(e);
-        return e;
+        Employee emp=new Employee(emp_name.getEmpName(),date,createdAt,updatedAt);
+        empDao.save(emp);
+        return emp;
     }
 
     //Delete Employee detail by Id
     @Override
-    public ResponseEntity<String> deleteEmployee(long parseLong) {
-        if(empDao.existsById(parseLong)){
-            Employee entity=empDao.getById(parseLong);
+    public ResponseEntity<String> deleteEmployee(long empId) {
+        if(empDao.existsById(empId)){
+            Employee entity=empDao.getById(empId);
             empDao.delete(entity);
             return ResponseEntity.status(HttpStatus.OK).body("Employee deleted Successfull");
         }
@@ -89,19 +89,6 @@ public class serviceImpl implements empService{
             return ResponseEntity.status(HttpStatus.OK).body("Employee updated");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
-
-        /*
-        Employee employee = employeeDao.getById(employeeDetails.geteId());
-    employee.seteName(employeeDetails.geteName());
-    LocalDateTime dateTime = LocalDateTime.now();
-    employee.setUpdatedAt(dateTime);
-    Employee employee1= employeeDao.save(employee);
-    EmployeeDetails employeeDetails1 =new EmployeeDetails();
-    employeeDetails1.seteId(employee1.geteId());
-    employeeDetails1.setName(employee1.geteName());
-    employeeDetails1.setDateOfJoining(employee1.getDateOfJoining());
-    return employeeDetails1;
-    */
     }
 
 }
