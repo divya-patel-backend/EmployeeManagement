@@ -22,7 +22,6 @@ public class serviceImpl implements empService{
     //Get Employee
     @Override
     public List<EmployeeDetails> getEmployees() {
-//        return empDao.findAll();
         List<EmployeeDetails> employeeDetailsList=new LinkedList<>();
         for(Employee employee:empDao.findAll()){
             EmployeeDetails employeeDetails=new EmployeeDetails();
@@ -39,7 +38,6 @@ public class serviceImpl implements empService{
     //Get Employee By Id
     @Override
     public EmployeeDetails getEmployee(Long emp_id) {
-//        return empDao.findById(emp_id);
         EmployeeDetails  emp=new EmployeeDetails();
         Employee employee=new Employee();
          employee=empDao.getById(emp_id);
