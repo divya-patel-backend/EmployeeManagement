@@ -4,6 +4,8 @@ import com.springboot.springboot.DTO.response.EmployeeDetails;
 import com.springboot.springboot.Dao.empDao;
 import com.springboot.springboot.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,9 +23,10 @@ public class serviceImpl implements empService{
 
     //Get Employee
     @Override
-    public List<EmployeeDetails> getEmployees() {
+    public List<EmployeeDetails> getEmployees(int pageNo) {
         List<EmployeeDetails> employeeDetailsList=new LinkedList<>();
-        for(Employee employee:empDao.findAll()){
+        Pageable page= PageRequest.of(pageNo,3);
+        for(Employee employee:empDao.findAll(page)){
             EmployeeDetails employeeDetails=new EmployeeDetails();
             employeeDetails.setEmpId(employee.getEmpId());
             employeeDetails.setEmpDate(employee.getEmpDoj());
@@ -73,12 +76,12 @@ public class serviceImpl implements empService{
     }
 
     @Override
-    public ResponseEntity<String> updateEmployee(com.springboot.springboot.DTO.request.EmployeeDetails e) {
-        if(empDao.existsById(e.getEmpId())) {
+    public ResponseEntity<String> updateEmployee(com.springboot.springboot.DTO.request.EmployeeDetails employee) {
+        if(empDao.existsById(employee.getEmpId())) {
             LocalDateTime updatedAt = LocalDateTime.now();
-            Employee emp = empDao.getById(e.getEmpId());
+            Employee emp = empDao.getById(employee.getEmpId());
             emp.setEmpUpdatedAt(updatedAt);
-            emp.setEmpName(e.getEmpName());
+            emp.setEmpName(employee.getEmpName());
             empDao.save(emp);
             return ResponseEntity.status(HttpStatus.OK).body("Employee updated");
         }

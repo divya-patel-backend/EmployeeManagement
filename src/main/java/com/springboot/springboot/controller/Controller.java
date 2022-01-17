@@ -15,9 +15,9 @@ public class Controller {
     @Autowired
     private empService empService;
 
-    @GetMapping("/employees")
-    public List<EmployeeDetails> getEmployees(){
-        return this.empService.getEmployees();
+    @GetMapping("/employees/page/{pageNo}")
+    public List<EmployeeDetails> getEmployees(@PathVariable Integer pageNo){
+        return this.empService.getEmployees(pageNo);
     }
 
     @GetMapping("/employees/{emp_id}")

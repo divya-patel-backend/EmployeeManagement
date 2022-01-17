@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface empService {
 
-    List<EmployeeDetails> getEmployees();
+    List<EmployeeDetails> getEmployees(int pageNo);
     EmployeeDetails getEmployee(Long empId);
 
     Employee addEmployee(com.springboot.springboot.DTO.request.EmployeeDetails empName);
