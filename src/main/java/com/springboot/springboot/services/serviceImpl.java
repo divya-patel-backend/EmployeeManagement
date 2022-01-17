@@ -81,11 +81,7 @@ public class serviceImpl implements empService{
             Employee emp = empDao.getById(e.getEmpId());
             emp.setEmpUpdatedAt(updatedAt);
             emp.setEmpName(e.getEmpName());
-            Employee employee1 = empDao.save(emp);
-            EmployeeDetails employeeDetails = new EmployeeDetails();
-            employeeDetails.setEmpId(employee1.getEmpId());
-            employeeDetails.setEmpName(employee1.getEmpName());
-            employeeDetails.setEmpDate(employee1.getEmpDoj());
+            empDao.save(emp);
             return ResponseEntity.status(HttpStatus.OK).body("Employee updated");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
