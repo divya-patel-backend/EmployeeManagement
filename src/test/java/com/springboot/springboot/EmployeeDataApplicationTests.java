@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+//@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class EmployeeDataApplicationTests {
 
@@ -40,12 +40,19 @@ class EmployeeDataApplicationTests {
     public void givenEmployeeId_WhenDeleteRequestisRaise_thanItshouldBeDeletedFromDatabase()
     {
         long employeeResignedId=5;
+        LocalDate date=LocalDate.now();
+        LocalDateTime dateTime=LocalDateTime.now();
+        Employee employee=new Employee(employeeResignedId,"divya",date,dateTime,dateTime);
         ArgumentCaptor<Long> employeeIdCapturer = ArgumentCaptor.forClass(Long.class);
         when(employeeDaoMock.existsById(employeeResignedId)).thenReturn(true);
+        when(employeeDaoMock.getById(employeeResignedId)).thenReturn(employee);
 
-        employeeServiceImplementation.deleteEmployee(employeeResignedId);
+        ResponseEntity<String> actualMessage=employeeServiceImplementation.deleteEmployee(employeeResignedId);
+        ResponseEntity<String> expectedMessage=ResponseEntity.status(HttpStatus.OK).body("Employee deleted Successfull");
+        verify(employeeDaoMock,times(1)).delete(employee);
         verify(employeeDaoMock,times(1)).getById(employeeIdCapturer.capture());
-        assertEquals(employeeResignedId, employeeIdCapturer.getValue());
+        assertEquals(employeeResignedId,employeeIdCapturer.getValue());
+        assertEquals(expectedMessage, actualMessage);
     }
 
     @Test
