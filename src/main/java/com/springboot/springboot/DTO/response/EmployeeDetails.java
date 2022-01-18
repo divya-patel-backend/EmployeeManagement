@@ -7,8 +7,6 @@ public class EmployeeDetails {
     private long empId;
     private String empName;
     private LocalDate empDate;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
     public EmployeeDetails() {
 
@@ -38,19 +36,5 @@ public class EmployeeDetails {
         this.empDate = empDate;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }

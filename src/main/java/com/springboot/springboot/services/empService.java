@@ -13,7 +13,7 @@ public interface empService {
     List<EmployeeDetails> getEmployees(int pageNo);
     EmployeeDetails getEmployee(Long empId);
 
-    Employee addEmployee(com.springboot.springboot.DTO.request.EmployeeDetails empName);
+    EmployeeDetails addEmployee(com.springboot.springboot.DTO.request.EmployeeDetails empName);
 
     ResponseEntity<String> deleteEmployee(long empId);
 

@@ -31,8 +31,6 @@ public class serviceImpl implements empService{
             employeeDetails.setEmpId(employee.getEmpId());
             employeeDetails.setEmpDate(employee.getEmpDoj());
             employeeDetails.setEmpName(employee.getEmpName());
-            employeeDetails.setCreatedAt(employee.getEmpCreatedAt());
-            employeeDetails.setUpdatedAt(employee.getEmpUpdatedAt());
             employeeDetailsList.add(employeeDetails);
         }
         return employeeDetailsList;
@@ -41,26 +39,28 @@ public class serviceImpl implements empService{
     //Get Employee By Id
     @Override
     public EmployeeDetails getEmployee(Long emp_id) {
-        EmployeeDetails  emp=new EmployeeDetails();
+        EmployeeDetails  employeeDetails=new EmployeeDetails();
         Employee employee=new Employee();
          employee=empDao.getById(emp_id);
-            emp.setEmpId(employee.getEmpId());
-            emp.setEmpName(employee.getEmpName());
-            emp.setEmpDate(employee.getEmpDoj());
-            emp.setCreatedAt(employee.getEmpCreatedAt());
-            emp.setUpdatedAt(employee.getEmpUpdatedAt());
-            return emp;
+            employeeDetails.setEmpId(employee.getEmpId());
+            employeeDetails.setEmpName(employee.getEmpName());
+            employeeDetails.setEmpDate(employee.getEmpDoj());
+            return employeeDetails;
     }
 
     //Add Employee Detail
     @Override
-    public Employee addEmployee(com.springboot.springboot.DTO.request.EmployeeDetails emp_name) {
+    public EmployeeDetails addEmployee(com.springboot.springboot.DTO.request.EmployeeDetails employeeDetails) {
         LocalDate date=LocalDate.now();
         LocalDateTime updatedAt= LocalDateTime.now();
         LocalDateTime createdAt=LocalDateTime.now();
-        Employee emp=new Employee(emp_name.getEmpName(),date,createdAt,updatedAt);
-        empDao.save(emp);
-        return emp;
+        Employee emp=new Employee(employeeDetails.getEmpName(),date,createdAt,updatedAt);
+        Employee emp1=empDao.save(emp);
+        EmployeeDetails employeeDetails1=new EmployeeDetails();
+        employeeDetails1.setEmpName(emp1.getEmpName());
+        employeeDetails1.setEmpDate(emp1.getEmpDoj());
+        employeeDetails1.setEmpId(emp1.getEmpId());
+        return employeeDetails1;
     }
 
     //Delete Employee detail by Id

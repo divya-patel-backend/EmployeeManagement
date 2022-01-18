@@ -26,7 +26,7 @@ public class Controller {
     }
 
     @PostMapping("/employees")
-    public Employee addEmployee(@RequestBody com.springboot.springboot.DTO.request.EmployeeDetails employeeDetails){
+    public EmployeeDetails addEmployee(@RequestBody com.springboot.springboot.DTO.request.EmployeeDetails employeeDetails){
         return this.empService.addEmployee(employeeDetails);
     }
 
