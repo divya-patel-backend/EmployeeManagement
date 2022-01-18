@@ -15,6 +15,23 @@ public class Employee {
     private LocalDateTime empUpdatedAt;
     private LocalDateTime empCreatedAt;
 
+
+    public Employee(long empId, String empName, LocalDate empDoj, LocalDateTime empUpdatedAt, LocalDateTime empCreatedAt) {
+        this.empId = empId;
+        this.empName = empName;
+        this.empDoj = empDoj;
+        this.empUpdatedAt = empUpdatedAt;
+        this.empCreatedAt = empCreatedAt;
+    }
+
+    public Employee(String emp_name, LocalDate emp_doj, LocalDateTime emp_createdAt, LocalDateTime emp_updatedAt) {
+        this.empName = emp_name;
+        this.empDoj =emp_doj;
+        this.empCreatedAt =emp_createdAt;
+        this.empUpdatedAt =emp_updatedAt;
+    }
+
+
     public LocalDateTime getEmpCreatedAt() {
         return empCreatedAt;
     }
@@ -29,14 +46,6 @@ public class Employee {
 
     public void setEmpUpdatedAt(LocalDateTime empUpdatedAt) {
         this.empUpdatedAt = empUpdatedAt;
-    }
-
-
-    public Employee(String emp_name, LocalDate emp_doj,LocalDateTime emp_createdAt,LocalDateTime emp_updatedAt) {
-        this.empName = emp_name;
-        this.empDoj =emp_doj;
-        this.empCreatedAt =emp_createdAt;
-        this.empUpdatedAt =emp_updatedAt;
     }
 
     public Employee() {

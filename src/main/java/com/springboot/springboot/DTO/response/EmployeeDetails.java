@@ -1,7 +1,6 @@
 package com.springboot.springboot.DTO.response;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class EmployeeDetails {
     private long empId;

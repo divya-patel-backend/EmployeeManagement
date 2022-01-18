@@ -4,9 +4,7 @@ import com.springboot.springboot.DTO.response.EmployeeDetails;
 import com.springboot.springboot.entity.Employee;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public interface empService {
 

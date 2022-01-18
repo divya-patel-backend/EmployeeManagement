@@ -9,14 +9,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.matchers.Equals;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class EmployeeDataApplicationTests {
 
@@ -49,24 +50,35 @@ class EmployeeDataApplicationTests {
 
     @Test
     public void givenPageNo_WhengetRequestisRaise_thanItshouldBegetFromDatabase(){
-        //ArgumentCaptor<Integer> employeePageCaptorer=ArgumentCaptor.forClass(Integer.class);
 
-        int pageNo=1;
+         int pageNo=1;
         LocalDate date=LocalDate.now();
         LocalDateTime dateTime=LocalDateTime.now();
-        List<EmployeeDetails> employees=new LinkedList<>();
-        Employee employee=new Employee("divya",date,dateTime,dateTime);
-        employee.setEmpId(1);
-        EmployeeDetails employeeDetails=new EmployeeDetails();
-        employeeDetails.setEmpName(employee.getEmpName());
-        employeeDetails.setEmpId(employee.getEmpId());
-        employeeDetails.setEmpDate(employee.getEmpDoj());
-        employees.add(employeeDetails);
+        List<Employee> employeeList=new LinkedList<>();
+        for(int i=0;i<5;i++){
+            employeeList.add(new Employee(i,"xyz"+i,date,dateTime,dateTime));
+        }
+        List<EmployeeDetails> employeeDetailsList=new LinkedList<>();
+        for(Employee employee:employeeList){
+            EmployeeDetails employeeDetails=new EmployeeDetails();
+            employeeDetails.setEmpId(employee.getEmpId());
+            employeeDetails.setEmpName(employee.getEmpName());
+            employeeDetails.setEmpDate(employee.getEmpDoj());
+            employeeDetailsList.add(employeeDetails);
+        }
+
         Pageable page=PageRequest.of(pageNo,3);
-        when(employeeDaoMock.findAll(page)).thenReturn();
-        //doReturn(employees).when(employeeDaoMock).findAll(page);
-        List<EmployeeDetails> arr=employeeServiceImplementation.getEmployees(pageNo);
-        assertEquals(employees,arr);
+        Page<Employee> employeesPage=new PageImpl<>(employeeList);
+        when(employeeDaoMock.findAll(page)).thenReturn(employeesPage);
+        List<EmployeeDetails> employee=employeeServiceImplementation.getEmployees(pageNo);
+
+        for(int i=0;i<5;i++) {
+            assertEquals(employeeDetailsList.get(i).getEmpId(), employee.get(i).getEmpId());
+            assertEquals(employeeDetailsList.get(i).getEmpName(), employee.get(i).getEmpName());
+            assertEquals(employeeDetailsList.get(i).getEmpDate(), employee.get(i).getEmpDate());
+        }
+
+
     }
 
 
@@ -111,7 +123,6 @@ class EmployeeDataApplicationTests {
         verify(employeeDaoMock,times(1)).save(employee1.capture());
         ResponseEntity<String> expected=ResponseEntity.status(HttpStatus.OK).body("Employee updated");
         assertEquals(expected,actual);
-        //assertEquals(e,employeeIdCapturer.getValue());
     }
 
     @Test
